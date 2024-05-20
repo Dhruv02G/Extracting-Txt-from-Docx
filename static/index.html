@@ -41,26 +41,26 @@
             const fileInput = document.getElementById('fileInput');
             const contentDiv = document.getElementById('content');
             contentDiv.textContent = '';
-
+    
             if (fileInput.files.length === 0) {
                 alert('Please select a file.');
                 return;
             }
-
+    
             const file = fileInput.files[0];
             const reader = new FileReader();
-
+    
             reader.onload = async (event) => {
                 const base64String = event.target.result.split(',')[1];
-
-                const response = await fetch('/extract-text/', {
+    
+                const response = await fetch('https://extracting-txt-from-docx.onrender.com', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ file: base64String }),
                 });
-
+    
                 if (response.ok) {
                     const data = await response.json();
                     contentDiv.textContent = data.content;
@@ -68,9 +68,10 @@
                     contentDiv.textContent = 'Error extracting content.';
                 }
             };
-
+    
             reader.readAsDataURL(file);
         });
     </script>
+
 </body>
 </html>
