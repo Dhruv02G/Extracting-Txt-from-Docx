@@ -5,6 +5,7 @@ from typing import Any
 import base64
 from docx import Document
 from io import BytesIO
+from fastapi.middleware.cors import CORSMiddleware 
 
 app = FastAPI()
 
