@@ -8,6 +8,15 @@ from io import BytesIO
 
 app = FastAPI()
 
+# Allow CORS for all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class DocxFile(BaseModel):
     file: str
 
