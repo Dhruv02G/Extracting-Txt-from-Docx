@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Any
 import base64
@@ -8,9 +7,6 @@ from docx import Document
 from io import BytesIO
 
 app = FastAPI()
-
-# Serve the HTML file
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
 class DocxFile(BaseModel):
     file: str
@@ -24,7 +20,7 @@ def read_docx(file: BytesIO) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    with open("static/index.html", "r") as f:
+    with open("index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
 
